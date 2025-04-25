@@ -1,619 +1,226 @@
 <!DOCTYPE html>
-<html lang="si"> <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YMCA මුල් ළමාවිය සංවර්ධන මධ්‍යස්ථානය</title>
+<html lang="si">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YMCA පෙර පාසල, රඹුක්කන - සිඟිති වෙසක් උළෙල 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&family=Poppins:wght@600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            /* Vesak theme background gradient: White, Light Yellow, Lighter Orange */
+            background: linear-gradient(135deg, #ffffff, #fff9c4, #ffecb3);
+            margin: 0; /* Ensure no default margin */
+            overflow: hidden; /* Hide scrollbars caused by particles going off-screen */
+        }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        /* Style for the particle container */
+        #tsparticles {
+            position: absolute; /* Position it absolutely */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Send it to the background */
+        }
 
-    <style>
-        /* 1. Theme Colors using CSS Variables (Easily change theme colors here!) */
-        :root {
-            --clr-primary: #00A9FF;     /* Playful Blue */
-            --clr-secondary: #FFD700;   /* Sunny Yellow */
-            --clr-accent: #FF7F50;      /* Energetic Orange */
-            --clr-bg: #f0f8ff;          /* Very Light Blue Background */
-            --clr-bg-alt: #e7f3ff;      /* Slightly Darker Light Blue */
-            --clr-bg-card: #ffffff;     /* Card Background (White) */
-            --clr-text-dark: #333333;   /* Dark Text */
-            --clr-text-light: #ffffff;  /* Light Text (White) */
-            --clr-icon: var(--clr-primary); /* Icon color (uses primary blue) */
-            --clr-shadow: rgba(0, 0, 0, 0.1); /* Shadow color */
-            --font-body: 'Poppins', sans-serif;
-            --font-heading: 'Baloo 2', cursive;
-            --border-radius-main: 15px; /* Consistent rounded corners */
-            --transition-speed: 0.3s; /* Consistent animation speed */
-        }
+        /* Ensure the main content card is above the particles */
+        .content-container {
+            position: relative; /* Needed for z-index to work */
+            z-index: 1; /* Keep content above particles */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem; /* Re-apply padding here */
+        }
 
-        /* Basic Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        .title-font { font-family: 'Pacifico', cursive; }
+        .sinhala-title { font-family: 'Noto Sans Sinhala', sans-serif; font-weight: 700; }
+        .content-font { font-family: 'Noto Sans Sinhala', sans-serif; }
+        .button-font { font-family: 'Poppins', sans-serif; font-weight: 600; }
 
-        /* Apply base styles and star background to body */
-        body {
-            font-family: var(--font-body);
-            background-color: var(--clr-bg);
-            color: var(--clr-text-dark);
-            line-height: 1.6;
-            padding-top: 85px; /* Space for fixed header */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 1s ease-out forwards; }
 
-            /* Subtle Star Background using CSS Gradients */
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0),
-                radial-gradient(circle at 25px 25px, rgba(0, 169, 255, 0.1) 1px, transparent 0);
-            background-size: 50px 50px; /* Density of stars */
-        }
+        .hover-lift:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
 
-        /* Centered container for content */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7); /* Slightly less transparent to ensure readability over particles */
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            max-width: 500px; /* Limit card width */
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 2rem; /* Adjust padding */
+        }
 
-        /* Header Styling (Fixed, with Shadow and Border) */
-        header {
-            background-color: var(--clr-bg-card);
-            padding: 15px 0;
-            box-shadow: 0 6px 25px var(--clr-shadow); /* Enhanced shadow */
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0; /* Ensure it spans full width */
-            z-index: 1000;
-            border-bottom: 4px solid var(--clr-primary);
-        }
+        .highlight-box {
+            /* Vesak theme highlight box: Light Yellow background, Dark Blue text */
+            background-color: rgba(255, 238, 186, 0.9);
+            color: #0d47a1; /* Dark blue */
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .text-gradient {
+            /* Vesak theme primary text gradient: Gold to Orange */
+            background: linear-gradient(45deg, #ffb300, #f57c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #ffb300; /* Fallback color */
+        }
+        .text-gradient-orange {
+            /* Vesak theme secondary text gradient: Blue shades */
+            background: linear-gradient(45deg, #2196f3, #1976d2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #2196f3; /* Fallback color */
+        }
 
-        /* Logo Styling */
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--clr-accent);
-            text-decoration: none;
-            transition: transform var(--transition-speed) ease;
-        }
-        .logo:hover {
-             transform: scale(1.05);
-        }
-        .logo i {
-            margin-right: 8px;
-            color: var(--clr-secondary);
-        }
+        .icon-list li { margin-bottom: 10px; display: flex; align-items: center; }
+        .icon-list svg {
+            margin-right: 10px;
+            /* Vesak theme icon color: Dark blue */
+            color: #0d47a1;
+            flex-shrink: 0;
+        }
 
-        /* Navigation Menu Styling */
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-        nav ul li {
-            margin-left: 25px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: var(--clr-text-dark);
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 50px; /* Pill shape */
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-        }
-        nav ul li a:hover,
-        nav ul li a.active {
-            background-color: var(--clr-accent);
-            color: var(--clr-text-light);
-            transform: translateY(-3px); /* Lift effect */
-            box-shadow: 0 4px 10px rgba(255, 127, 80, 0.4); /* Shadow matching accent */
-        }
+    </style>
+</head>
 
-        /* Page Section General Styling */
-        .page-section {
-            padding: 60px 0; /* Increased padding */
-            opacity: 0; /* Start hidden for entry animation */
-            animation: fadeInPage 0.6s ease-in-out forwards; /* Apply fade-in */
-        }
-        /* Animation for initial section load */
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .page-section h2 {
-            font-family: var(--font-heading);
-            font-size: 2.8em;
-            color: var(--clr-primary);
-            margin-bottom: 40px; /* Increased space */
-            text-align: center;
-            position: relative;
-        }
-        .page-section h2::after { /* Decorative underline */
-            content: '';
-            display: block;
-            width: 100px;
-            height: 5px;
-            background-image: linear-gradient(to right, var(--clr-secondary), var(--clr-accent));
-            border-radius: 3px;
-            margin: 15px auto 0; /* Increased margin */
-        }
-
-        /* --- Styling for Card-like elements + Hover/Animation Base --- */
-        .feature-item, .program-description, .events-list li, .contact-info, .upcoming-events-preview {
-            background-color: var(--clr-bg-card);
-            border-radius: var(--border-radius-main);
-            box-shadow: 0 8px 30px -5px var(--clr-shadow); /* Default shadow */
-            transition: transform var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out;
-            margin-bottom: 35px; /* Consistent spacing */
-            border: 1px solid rgba(0,0,0,0.05); /* Subtle border */
-        }
-
-        /* Hover effect for cards */
-        .feature-item:hover, .program-description:hover, .events-list li:hover {
-            transform: translateY(-10px) scale(1.02); /* Lift and slight grow */
-            box-shadow: 0 15px 40px -8px rgba(0,0,0,0.15); /* Stronger shadow */
-        }
-
-        /* --- Specific Section Styles --- */
-
-        /* Home Section: Hero Text */
-        #home .hero-text {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        #home .hero-text h1 {
-            font-family: var(--font-heading);
-            font-size: 3.2em; /* Larger heading */
-            color: var(--clr-accent);
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-         #home .hero-text p {
-            font-size: 1.2em;
-            color: #555;
-         }
-
-        /* Home Section: Features */
-        .features {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px; /* Increased gap */
-        }
-        .feature-item {
-            flex-basis: calc(33.333% - 30px); /* Adjust basis for gap */
-            min-width: 260px;
-            padding: 35px;
-            text-align: center;
-        }
-        .feature-item i {
-            font-size: 3em;
-            color: var(--clr-icon);
-            background-image: linear-gradient(to bottom right, var(--clr-bg-alt), #ffffff);
-            padding: 25px;
-            border-radius: 50%;
-            display: inline-block;
-            width: 110px;
-            height: 110px;
-            line-height: 60px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-        .feature-item h3 {
-            font-family: var(--font-heading);
-            font-size: 1.6em;
-            color: var(--clr-text-dark);
-            margin-bottom: 8px;
-        }
-
-        /* Home Section: Upcoming Events Preview */
-        .upcoming-events-preview {
-            padding: 35px;
-            border-left: 5px solid var(--clr-primary);
-        }
-        .upcoming-events-preview h3 {
-            font-family: var(--font-heading);
-            color: var(--clr-primary);
-            margin-bottom: 20px; /* More space */
-            text-align: left;
-            font-size: 1.8em; /* Larger heading */
-        }
-        .upcoming-events-preview h3 i { margin-right: 10px; }
-        .upcoming-events-preview ul { list-style: none; padding-left: 0; }
-        .upcoming-events-preview li {
-            margin-bottom: 15px; /* More space */
-            padding-left: 20px; /* More indent */
-            border-left: 3px solid var(--clr-secondary);
-            position: relative;
-            font-size: 1.05em;
-        }
-        .upcoming-events-preview li::before { /* Circle marker */
-            content: '';
-            position: absolute;
-            left: -6.5px;
-            top: 8px;
-            width: 10px;
-            height: 10px;
-            background-color: var(--clr-secondary);
-            border-radius: 50%;
-            border: 2px solid var(--clr-bg-card);
-        }
-        .upcoming-events-preview li strong { color: var(--clr-primary); display: block; margin-bottom: 3px;}
-        .upcoming-events-preview a { /* Button style */
-            display: inline-block;
-            margin-top: 25px;
-            color: var(--clr-primary);
-            font-weight: 600;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 2px solid var(--clr-primary);
-            border-radius: 50px;
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-        }
-        .upcoming-events-preview a:hover {
-            background-color: var(--clr-primary);
-            color: var(--clr-text-light);
-        }
-         .upcoming-events-preview a i { margin-left: 5px; }
-
-
-        /* Programs Section: Description Cards */
-        .program-description {
-            padding: 35px; /* Increased padding */
-            border-left: 6px solid var(--clr-accent);
-        }
-        .program-description h3 {
-            font-family: var(--font-heading);
-            color: var(--clr-accent);
-            margin-bottom: 18px; /* More space */
-            display: flex;
-            align-items: center;
-            font-size: 1.8em;
-        }
-        .program-description h3 i { margin-right: 12px; color: var(--clr-secondary); }
-        .program-description ul { list-style: none; padding-left: 25px; }
-        .program-description ul li { margin-bottom: 10px; position: relative; }
-        .program-description ul li::before { /* List item icon */
-             content: "\f105"; /* Font Awesome angle-right */
-             font-family: "Font Awesome 6 Free";
-             font-weight: 900;
-             color: var(--clr-secondary);
-             position: absolute;
-             left: -18px; /* Adjust position */
-             top: 3px;
-             font-size: 0.9em;
-         }
-        .program-description ol { padding-left: 40px; margin-top: 15px; } /* Style ordered list */
-        .program-description ol li { margin-bottom: 8px; }
-
-
-        /* Events Section: List Styling */
-        #events .events-list ul { list-style: none; padding-left: 0; }
-        #events .events-list li {
-            background-color: var(--clr-bg-alt);
-            padding: 25px; /* Increased padding */
-            margin-bottom: 25px; /* Increased space */
-            border-left: 6px solid var(--clr-secondary);
-        }
-        #events .events-list li i { color: var(--clr-accent); margin-right: 12px; font-size: 1.1em; }
-        #events .events-list li strong {
-            color: var(--clr-primary);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1.2em; /* Larger date/time */
-        }
-
-        /* Events Section: Contact Info Box */
-        #events .contact-info {
-            background-image: linear-gradient(to bottom right, var(--clr-primary), #007bff); /* Adjusted gradient */
-            color: var(--clr-text-light);
-            padding: 40px; /* Increased padding */
-        }
-        #events .contact-info h3 {
-            font-family: var(--font-heading);
-            color: var(--clr-text-light);
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 1.9em;
-        }
-        #events .contact-info p { margin-bottom: 18px; line-height: 1.8; display: flex; align-items: center; font-size: 1.05em; }
-        #events .contact-info p i {
-            color: var(--clr-secondary);
-            margin-right: 18px;
-            font-size: 1.4em;
-            width: 30px;
-            text-align: center;
-        }
-        #events .contact-info a {
-            color: var(--clr-secondary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        #events .contact-info a:hover { text-decoration: underline; }
-
-
-        /* Footer Styling */
-        footer {
-            background-color: var(--clr-text-dark);
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            padding: 30px 0; /* Increased padding */
-            margin-top: 60px; /* Increased space */
-        }
-
-        /* --- CSS for Scroll Animations --- */
-        /* Class added by JS to prepare element */
-        .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        /* Specific animation type */
-        .fade-in-up {
-            transform: translateY(50px); /* Start further down */
-        }
-        /* Class added by JS when element is visible */
-        .fade-in-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Helper class to hide sections (used by JS) */
-        .hidden {
-            display: none !important; /* Use important to ensure override */
-        }
-
-    </style>
-    </head>
 <body>
 
-    <header>
-        <div class="container">
-            <a href="#home" class="logo nav-link" data-target="home">
-                <i class="fas fa-child-reaching"></i> YMCA ECD Center
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#home" class="nav-link active" data-target="home">මුල් පිටුව</a></li>
-                    <li><a href="#programs" class="nav-link" data-target="programs">වැඩසටහන් / අපි ගැන</a></li>
-                    <li><a href="#events" class="nav-link" data-target="events">සිදුවීම් / සම්බන්ධතා</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="tsparticles"></div>
 
-    <main class="container">
+    <div class="content-container">
+        <div class="glass-card fade-in-up hover-lift">
 
-        <section id="home" class="page-section">
-            <div class="hero-text animate-on-scroll"> <h1>ඔබේ දරුවාගේ හෙට දවසට<br>සුන්දර ඇරඹුමක්!</h1>
-                <p>YMCA මුල් ළමාවිය සංවර්ධන මධ්‍යස්ථානය වෙත ඔබ සාදරයෙන් පිළිගනිමු!</p>
-            </div>
+            <h1 class="text-4xl md:text-5xl title-font text-gradient mb-2">සදහම් සිසිල</h1>
+            <h2 class="text-3xl md:text-4xl sinhala-title text-gradient-orange mb-3">සිඟිති වෙසක් උළෙල 2025</h1>
+            <h3 class="text-xl md:text-2xl text-gray-800 font-semibold mb-5">YMCA පෙර පාසල, රඹුක්කන</h3>
 
-            <div class="features">
-                <div class="feature-item animate-on-scroll">
-                    <i class="fas fa-users"></i>
-                    <h3>පළපුරුදු ගුරුවරු</h3>
-                    <p>දරුවන්ට ආදරය කරන, පුහුණුව ලත් ගුරු මණ්ඩලයක්.</p>
-                </div>
-                <div class="feature-item animate-on-scroll">
-                    <i class="fas fa-shapes"></i>
-                    <h3>ක්‍රියාකාරකම් පාදක ඉගෙනුම</h3>
-                    <p>සෙල්ලම් μέσαින් ඉගෙනීමට දරුවන් යොමු කිරීම.</p>
-                </div>
-                <div class="feature-item animate-on-scroll">
-                    <i class="fas fa-shield-heart"></i>
-                    <h3>ආරක්ෂිත පරිසරය</h3>
-                    <p>ඔබේ දරුවාට සෙනෙහෙබර, සුරක්ෂිත තැනක්.</p>
-                </div>
-            </div>
+            <p class="text-lg content-font text-gray-800 mb-6">
+                YMCA පෙර පාසලේ (රඹුක්කන) අපේ සිඟිති දූ පුතුන් සමග එක්ව, වෙසක් සිරිත් විරිත් සිහිපත් කරමින්, දහම් සිසිල විඳින්නට ඔබ සැමට ආදරයෙන් ඇරයුම්! 🏮✨
+            </p>
 
-            <div class="upcoming-events-preview animate-on-scroll"> <h3><i class="fas fa-calendar-alt"></i> ඉදිරියේදී...</h3>
-                <ul>
-                    <li><strong>අප්‍රේල් 10, 2025:</strong> සිඟිති අවුරුදු උත්සවය - සියලු දරුවන්ට ආරාධනා!</li>
-                    <li><strong>මැයි 05, 2025:</strong> වෙසක් පහන් කූඩු වැඩමුළුව.</li>
-                    </ul>
-                <a href="#events" class="nav-link" data-target="events">සියලුම සිදුවීම් බලන්න <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </section>
+            <div class="highlight-box text-lg font-semibold mb-6">
+                <span class="sinhala-title">දිනය:</span> 2025 වෙසක් පොහොය දිනය<br>
+                <span class="sinhala-title">වේලාව:</span> පෙ.ව. 8.00 සිට <br>
+                <span class="sinhala-title">ස්ථානය:</span> YMCA පෙර පාසල පරිශ්‍රය
+            </div>
 
-        <section id="programs" class="page-section hidden"> <h2><i class="fas fa-book-open-reader"></i> අපේ වැඩසටහන් සහ අපි ගැන</h2>
+            <p class="text-md content-font font-semibold text-gray-700 mb-2">අපේ පොඩ්ඩන් වෙනුවෙන්ම:</p>
+            <ul class="icon-list text-left inline-block text-md content-font text-gray-700 mb-6">
+               <li><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg> වෙසක් පහන් කූඩු නිර්මාණ 🏮</li>
+               <li><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg> භක්ති ගීත ගායනා 🎶</li>
+               <li><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg> වෙසක් සැරසිලි නැරඹීම ✨</li>
+               <li><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg> දහම් වැඩසටහන් හා දක්ෂතා 🌟</li>
+            </ul>
 
-            <div class="program-description animate-on-scroll">
-                 <h3><i class="fas fa-seedling"></i> අපි කවුද? (අපේ දැක්ම)</h3>
-                 <p>[මෙතනට ඔයාලගෙ Center එකේ Vision, Mission එක, මුල් ළමාවිය සංවර්ධනය ගැන ඔයාලගෙ අදහස ලියන්න. උදා: "සෑම දරුවෙකුටම ප්‍රීතිමත්, සුරක්ෂිත පරිසරයක් තුළ සිය හැකියාවන් වර්ධනය කර ගැනීමට අවස්ථාව සලසා දීම අපගේ අරමුණයි."]</p>
-            </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                                <a href="#" class="bg-blue-700 hover:bg-blue-800 text-white button-font py-2.5 px-7 rounded-full transition shadow-md hover-lift">
+                    පැමිණෙන්න!
+                </a>
+                <a href="tel:+94719777051" class="bg-orange-600 hover:bg-orange-700 text-white button-font py-2.5 px-7 rounded-full transition shadow-md hover-lift">
+                    විමසීම් (071 977 7051)
+                </a>
+            </div>
 
-            <div class="program-description animate-on-scroll">
-                 <h3><i class="fas fa-puzzle-piece"></i> සෙල්ලම් කණ්ඩායම (Playgroup - වයස 2-3)</h3>
-                 <p>[මෙම වයස් කාණ්ඩයට අදාලව කරන දේවල් ගැන පොඩි විස්තරයක් ලියන්න:]</p>
-                 <ul>
-                     <li>සමාජ කුසලතා වර්ධනය</li>
-                     <li>භාෂා හැකියාවට මුල් පියවර</li>
-                     <li>සරල ක්‍රීඩා සහ ගීත</li>
-                     <li>චිත්‍ර ඇඳීම සහ වර්ණ ගැන්වීම</li>
-                 </ul>
-            </div>
+            <p class="mt-8 text-sm content-font text-gray-600">මේ සදහම් සතුට ඔබේ යහළුවන් සමග Facebook & WhatsApp හරහා බෙදාගන්න! 😊</p>
+            </div>
+    </div>
 
-            <div class="program-description animate-on-scroll">
-                 <h3><i class="fas fa-pencil-alt"></i> පෙර පාසල (Nursery - වයස 3-4)</h3>
-                 <p>[මෙම වයස් කාණ්ඩයට අදාලව කරන දේවල් ගැන පොඩි විස්තරයක් ලියන්න:]</p>
-                 <ul>
-                     <li>අකුරු, ඉලක්කම් හඳුන්වා දීම</li>
-                     <li>කතන්දර කීම සහ සවන්දීම</li>
-                     <li>කණ්ඩායම් ක්‍රියාකාරකම්</li>
-                     <li>ස්වාධීනත්වය දිරි ගැන්වීම</li>
-                 </ul>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
 
-             <div class="program-description animate-on-scroll">
-                 <h3><i class="fas fa-graduation-cap"></i> බාලාංශය (Kindergarten - වයස 4-5)</h3>
-                 <p>[මෙම වයස් කාණ්ඩයට අදාලව කරන දේවල් ගැන පොඩි විස්තරයක් ලියන්න:]</p>
-                 <ul>
-                     <li>පාසල් යාමට පෙර සූදානම</li>
-                     <li>කියවීම, ලිවීම සඳහා මූලික කුසලතා</li>
-                     <li>ගණිතමය සංකල්ප හඳුන්වා දීම</li>
-                     <li>පරිසරය සහ විද්‍යාව ගැන සරල ඉගෙනුමක්</li>
-                 </ul>
-            </div>
+    <script>
+        tsParticles.load("tsparticles", { // Use the ID of the container div
+            fpsLimit: 60, // Limit frames per second for performance
+            particles: {
+                number: {
+                    value: 60, // Slightly more particles
+                    density: {
+                        enable: true,
+                        value_area: 900 // Slightly larger spread area
+                    }
+                },
+                color: {
+                    /* Vesak theme particle colors: White, Light Yellow, Light Blue */
+                    value: ["#ffffff", "#fff9c4", "#b3e5fc"]
+                },
+                shape: {
+                    type: "circle", // Changed shape to circle for a calmer feel
+                },
+                opacity: {
+                    value: 0.7, // Particle opacity
+                    random: true, // Randomize opacity
+                    anim: {
+                        enable: true,
+                        speed: 0.8, // Slightly faster fade
+                        opacity_min: 0.2,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4, // Slightly larger particle size
+                    random: true, // Randomize size
+                    anim: {
+                        enable: false,
+                        speed: 4,
+                        size_min: 0.5,
+                        sync: false
+                    }
+                },
+                links: {
+                    enable: false, // Do not draw lines between particles
+                },
+                move: {
+                    enable: true,
+                    speed: 1, // Slightly slower movement speed
+                    direction: "top", // Particles move upwards (like rising light/petals)
+                    random: true, // Randomize direction slightly
+                    straight: false, // Allow non-straight movement
+                    out_mode: "out", // Remove particles when they go out of bounds
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                    }
+                }
+            },
+            interactivity: { // Disable interactivity
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: false,
+                    },
+                    onclick: {
+                        enable: false,
+                    },
+                    resize: true
+                },
+            },
+            detectRetina: true // Better rendering on high-density screens
+        });
+    </script>
 
-             <div class="program-description animate-on-scroll">
-                 <h3><i class="fas fa-info-circle"></i> ඇතුලත් වීම</h3>
-                 <p>අප හා සම්බන්ධ වීමට පියවර:</p>
-                 <ol>
-                     <li>දුරකථන ඇමතුමක් දී හෝ පැමිණ වැඩි විස්තර ලබා ගන්න.</li>
-                     <li>මධ්‍යස්ථානය නැරඹීමට වේලාවක් වෙන් කරගන්න.</li>
-                     <li>අයදුම් පත්‍රය සම්පූර්ණ කර භාර දෙන්න.</li>
-                 </ol>
-            </div>
-        </section>
-
-        <section id="events" class="page-section hidden"> <h2><i class="fas fa-bullhorn"></i> ඉදිරි සිදුවීම් සහ සම්බන්ධතා</h2>
-
-            <div class="events-list">
-                <h3>ඉදිරි සිදුවීම් ලැයිස්තුව</h3>
-                 <ul>
-                     <li class="animate-on-scroll">
-                         <i class="fas fa-calendar-check"></i>
-                         <strong>අප්‍රේල් 10, 2025 (බ්‍රහස්පතින්දා) - පෙ.ව. 10:00</strong>
-                         සිඟිති අවුරුදු උත්සවය - අපේ පොඩ්ඩන්ගේ අවුරුදු සිරි නරඹන්න ඔබත් එන්න!
-                     </li>
-                     <li class="animate-on-scroll">
-                         <i class="fas fa-calendar-check"></i>
-                         <strong>මැයි 05, 2025 (සඳුදා)</strong>
-                         වෙසක් පහන් කූඩු වැඩමුළුව - දරුවන්ගේ දෑතින් හැඩවෙන වෙසක් කූඩු.
-                     </li>
-                     <li class="animate-on-scroll">
-                         <i class="fas fa-calendar-check"></i>
-                         <strong>ජූනි 15, 2025 (ඉරිදා) - පෙ.ව. 9:30</strong>
-                         පියවරුන්ගේ දින සැමරුම - තාත්තලා එක්ක සෙල්ලම් කරමු!
-                     </li>
-                     </ul>
-            </div>
-
-             <div class="contact-info animate-on-scroll"> <h3><i class="fas fa-map-marker-alt"></i> අපව සම්බන්ධ කරගන්න</h3>
-                 <p><i class="fas fa-home"></i>ලිපිනය: YMCA Early Child Development Center, [Your Address Line 1], [Address Line 2], [Your City]</p>
-                 <p><i class="fas fa-phone"></i>දුරකථන: <a href="tel:+94XXXXXXXXX">[+94 XX XXX XXXX]</a>, <a href="tel:+94YYYYYYYYY">[+94 YY YYY YYY]</a></p>
-                 <p><i class="fas fa-envelope"></i>ඊමේල්: <a href="mailto:info@ymcaecd.lk">[info@ymcaecd.lk]</a></p>
-                 <p><i class="fas fa-clock"></i>විවෘත වේලාවන්: සඳුදා - සිකුරාදා, පෙ.ව. 8:00 - ප.ව. 2:00</p>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="currentYear"></span> YMCA මුල් ළමාවිය සංවර්ධන මධ්‍යස්ථානය. සියලු හිමිකම් ඇවිරිණි.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pageSections = document.querySelectorAll('.page-section');
-            const currentYearSpan = document.getElementById('currentYear');
-
-            // Set current year in footer
-            const currentYear = new Date().getFullYear();
-            if (currentYearSpan) {
-               currentYearSpan.textContent = currentYear;
-            }
-
-            // Function to show the target section and hide others
-            function showSection(targetId, isInitialLoad = false) {
-                pageSections.forEach(section => {
-                    // Add 'hidden' class to hide sections not being targeted
-                    if (section.id !== targetId) {
-                         section.classList.add('hidden');
-                    } else {
-                         section.classList.remove('hidden'); // Ensure target is not hidden
-                    }
-                    // Reset animation for sections that might be re-shown
-                    section.style.animation = 'none';
-                });
-
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                     // Re-trigger fade-in animation for the shown section
-                     // Use a tiny timeout to allow browser to apply 'display: block' first
-                    setTimeout(() => {
-                         targetSection.style.animation = '';
-                    }, 10);
-                }
-
-                // Update active class on navigation links
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    // Check if the link's data-target matches the targetId
-                    if (link.dataset.target === targetId) {
-                        link.classList.add('active');
-                    }
-                });
-
-                // Scroll to top only if it's not the initial page load
-                if (!isInitialLoad) {
-                     setTimeout(()=> { // Delay scrolling slightly
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }, 100);
-                }
-            }
-
-            // Add click event listeners to ALL navigation links (including logo and preview link)
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent default anchor jump
-                    const targetId = this.dataset.target; // Get target section ID
-                     if(targetId) {
-                        showSection(targetId);
-                     }
-                });
-            });
-
-            // ---- Scroll Animation Logic using Intersection Observer ----
-            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-
-            const observerOptions = {
-                root: null, // relative to the viewport
-                rootMargin: '0px',
-                threshold: 0.1 // Trigger when 10% visible
-            };
-
-            const observerCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    // Add specific animation class (can customize per element if needed)
-                    entry.target.classList.add('fade-in-up');
-
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        // Optional: Uncomment below to animate only once
-                        // observer.unobserve(entry.target);
-                    } else {
-                        // Optional: Uncomment below to re-animate every time it scrolls in/out
-                         entry.target.classList.remove('is-visible');
-                    }
-                });
-            };
-
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-            elementsToAnimate.forEach(el => {
-                observer.observe(el);
-            });
-            // ---- End Scroll Animation Logic ----
-
-
-            // Show the 'home' section by default on page load
-            showSection('home', true); // Pass true for initial load
-
-        });
-    </script>
-    </body>
+</body>
 </html>
